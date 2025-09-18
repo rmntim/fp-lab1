@@ -5,24 +5,19 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github rmntim/fp-lab1))
 
-(authors "Author Name <author@example.com>")
+(authors "Roman Timoshkin <rmntim@yandex.ru>")
 
-(maintainers "Maintainer Name <maintainer@example.com>")
+(maintainers "Roman Timoshkin <rmntim@yandex.ru>")
 
-(license LICENSE)
-
-(documentation https://url/to/documentation)
+(license MIT)
 
 (package
  (name labwork1)
- (synopsis "A short synopsis")
- (description "A longer description")
+ (synopsis "Functional Programming Labwork 1")
+ (description "Functional Programming Labwork 1")
  (depends
   ocaml
-  (alcotest :with-test))
- (tags
-  ("add topics" "to describe" your project)))
-
-; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html
+  (alcotest :with-test)
+  (zanuda :with-dev-setup)))
