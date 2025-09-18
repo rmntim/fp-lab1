@@ -25,6 +25,6 @@ jobs:
         with:
           ocaml-compiler: 4
       - run: opam install . --deps-only --with-test --with-dev-setup
-      - run: opam exec -- dune build
+      - run: opam exec -- dune build @check
       - run: opam exec -- dune runtest
       - run: opam exec -- zanuda -dir .
