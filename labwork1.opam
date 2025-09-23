@@ -10,6 +10,7 @@ bug-reports: "https://github.com/rmntim/fp-lab1/issues"
 depends: [
   "dune" {>= "3.20"}
   "ocaml"
+  "zarith"
   "alcotest" {with-test}
   "zanuda" {with-dev-setup}
   "odoc" {with-doc}

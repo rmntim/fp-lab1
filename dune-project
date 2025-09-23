@@ -19,5 +19,6 @@
  (description "Functional Programming Labwork 1")
  (depends
   ocaml
+  zarith
   (alcotest :with-test)
   (zanuda :with-dev-setup)))

@@ -1,2 +1,3 @@
 (library
- (name labwork1))
+ (name labwork1)
+ (libraries zarith))
