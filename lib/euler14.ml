@@ -29,15 +29,26 @@ let solve_monolithic_recursive limit =
   in
   search 1 1 1
 
-let solve_modular limit =
-  let generate bound = List.init (bound + 1) Fun.id in
-  let filter_numbers bound = List.filter (fun n -> n > 0 && n < bound) in
+module CollatzGenerator = struct
+  let generate bound = List.init (bound + 1) Fun.id
+end
+
+module CollatzFilter = struct
+  let filter_numbers bound = List.filter (fun n -> n > 0 && n < bound)
+end
+
+module CollatzReducer = struct
   let reduce_numbers =
     List.fold_left (fun (best, best_len) n ->
         let len = collatz_length_tail n in
         if len > best_len then (n, len) else (best, best_len))
-  in
-  generate limit |> filter_numbers limit |> reduce_numbers (1, 1) |> fst
+end
+
+let solve_modular limit =
+  CollatzGenerator.generate limit
+  |> CollatzFilter.filter_numbers limit
+  |> CollatzReducer.reduce_numbers (1, 1)
+  |> fst
 
 let solve_with_map limit =
   List.init (limit - 1) (fun i -> i + 1)

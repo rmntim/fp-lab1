@@ -12,13 +12,22 @@ let solve_monolithic_recursive base power =
   let rec aux = function [] -> 0 | d :: rest -> int_from_char d + aux rest in
   Z.pow (Z.of_int base) power |> Z.to_string |> explode_string |> aux
 
-let solve_modular base power =
+module PowerGenerator = struct
   let generate base power =
     Z.pow (Z.of_int base) power |> Z.to_string |> explode_string
-  in
-  let filter = List.filter (( <> ) '0') in
-  let reduce = List.fold_left (fun acc c -> acc + int_from_char c) 0 in
-  generate base power |> filter |> reduce
+end
+
+module PowerFilter = struct
+  let filter = List.filter (( <> ) '0')
+end
+
+module PowerReducer = struct
+  let reduce = List.fold_left (fun acc c -> acc + int_from_char c) 0
+end
+
+let solve_modular base power =
+  PowerGenerator.generate base power
+  |> PowerFilter.filter |> PowerReducer.reduce
 
 let solve_with_map base power =
   Z.pow (Z.of_int base) power
