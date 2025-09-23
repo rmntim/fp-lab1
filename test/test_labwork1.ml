@@ -1,6 +1,6 @@
 open Alcotest
-module Euler14 = Labwork1.Euler_problems.Euler14
-module Euler16 = Labwork1.Euler_problems.Euler16
+module Euler14 = Labwork1.Euler14
+module Euler16 = Labwork1.Euler16
 
 let test_collatz_next_even () = check int "6 -> 3" 3 (Euler14.collatz_next 6)
 let test_collatz_next_odd () = check int "7 -> 22" 22 (Euler14.collatz_next 7)

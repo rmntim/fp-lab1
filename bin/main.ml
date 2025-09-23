@@ -11,8 +11,8 @@ let () =
   let limit_14 = 1_000_000 in
   let base = 2 in
   let power = 1_000 in
-  let module P14 = Euler_problems.Euler14 in
-  let module P16 = Euler_problems.Euler16 in
+  let module P14 = Euler14 in
+  let module P16 = Euler16 in
   let problem14_results =
     [
       ("Tail recursion", P14.solve_monolithic_tail limit_14);
