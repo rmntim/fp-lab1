@@ -9,10 +9,7 @@ let solve_monolithic_tail base power =
   Z.pow (Z.of_int base) power |> Z.to_string |> explode_string |> aux 0
 
 let solve_monolithic_recursive base power =
-  let rec aux = function
-    | [] -> 0
-    | d :: rest -> int_from_char d + aux rest
-  in
+  let rec aux = function [] -> 0 | d :: rest -> int_from_char d + aux rest in
   Z.pow (Z.of_int base) power |> Z.to_string |> explode_string |> aux
 
 let solve_modular base power =
