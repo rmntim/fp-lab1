@@ -71,69 +71,18 @@ module Euler14 = struct
 end
 
 module Euler16 = struct
-  type digits = int list
-
-  let normalize digits =
-    let rec aux carry acc = function
-      | [] when carry = 0 -> acc
-      | [] -> carry :: acc
-      | d :: rest ->
-          let total = d + carry in
-          aux (total / 10) ((total mod 10) :: acc) rest
-    in
-    aux 0 [] digits |> List.rev
-
-  let scale_digits factor digits =
-    digits |> List.map (fun d -> d * factor) |> normalize
-
-  let rec scale_digits_recursive factor = function
-    | [] -> []
-    | d :: rest ->
-        let scaled_tail = scale_digits_recursive factor rest in
-        normalize ((d * factor) :: scaled_tail)
-
-  let sum_digits digits = List.fold_left ( + ) 0 digits
-
-  let rec power_tail factor power digits =
-    if power = 0 then digits
-    else power_tail factor (power - 1) (scale_digits factor digits)
-
-  let rec power_recursive factor power digits =
-    if power = 0 then digits
-    else
-      power_recursive factor (power - 1) (scale_digits_recursive factor digits)
+  open Z
 
   let solve_monolithic_tail base power =
-    power_tail base power [ 1 ] |> sum_digits
-
-  let solve_monolithic_recursive base power =
-    power_recursive base power [ 1 ] |> sum_digits
-
-  let solve_modular base power =
-    let generate_steps count = List.init count Fun.id in
-    let filter_steps = List.filter (fun _ -> true) in
-    let fold_steps =
-      List.fold_left (fun digits _ -> scale_digits base digits) [ 1 ]
+    let rec aux acc = function
+      | [] -> acc
+      | d :: rest -> aux (acc + int_of_string d) rest
     in
-    generate_steps power |> filter_steps |> fold_steps |> sum_digits
+    power_int_positive_int base power |> string_of_big_int |> aux 0
 
-  let solve_with_map base power =
-    List.init power (fun _ -> base)
-    |> List.map Fun.id
-    |> List.fold_left (fun digits factor -> scale_digits factor digits) [ 1 ]
-    |> sum_digits
-
-  let solve_with_loops base power =
-    let digits = ref [ 1 ] in
-    for _ = 1 to power do
-      digits := scale_digits base !digits
-    done;
-    sum_digits !digits
-
-  let solve_with_seq base power =
-    let open Seq in
-    let powers = iterate (scale_digits base) [ 1 ] in
-    match uncons (drop power powers) with
-    | None -> 0
-    | Some (digits, _) -> sum_digits digits
+  let solve_monolithic_recursive base power = base + power
+  let solve_modular base power = base + power
+  let solve_with_map base power = base + power
+  let solve_with_loops base power = base + power
+  let solve_with_seq base power = base + power
 end
